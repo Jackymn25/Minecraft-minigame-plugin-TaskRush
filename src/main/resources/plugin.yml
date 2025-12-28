@@ -1,0 +1,15 @@
+name: TaskMaster
+version: '1.0-SNAPSHOT'
+main: me.jacky.taskMaster.TaskMaster
+api-version: '1.20'
+authors: [ Jacky ]
+commands:
+  ping:
+    description: get sender's ping or ping of target player
+    usage: /<command> Optional<Player>
+    aliases:
+      - delay
+  TaskMaster:
+    description: start game!
+    usage: /<command>
+

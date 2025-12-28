@@ -1,0 +1,3 @@
+join-message: "This is from Task Master Plugin - Hi %name%"
+refresh-while-join: false
+game-status: false
