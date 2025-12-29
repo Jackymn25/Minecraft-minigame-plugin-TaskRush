@@ -12,4 +12,7 @@ commands:
   TaskMaster:
     description: start game!
     usage: /<command>
+  jointeam:
+    description: join teams!
+    usage: /<command>
 

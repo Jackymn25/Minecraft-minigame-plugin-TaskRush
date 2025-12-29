@@ -26,12 +26,12 @@ public class StartTaskRushCommand implements CommandExecutor {
             if (sender instanceof Player p) {
                 boolean game_status = plugin.getConfig().getBoolean("game-status");
                 if (game_status) {
-                        p.sendMessage(ChatColor.RED + "TaskRush has been started.");
+                    p.sendMessage(ChatColor.RED + "TaskRush has been started.");
                     return true;
                 } else {
                     plugin.getConfig().set("game-status", true);
                     plugin.saveConfig();
-                    this.game.
+
 
                     Bukkit.broadcastMessage(ChatColor.GREEN + "TaskRush has been started.");
                 }
