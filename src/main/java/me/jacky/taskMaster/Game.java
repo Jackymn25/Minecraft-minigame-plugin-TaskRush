@@ -1,6 +1,8 @@
 package me.jacky.taskMaster;
 
 import me.jacky.taskMaster.config.BonusManager;
+import me.jacky.taskMaster.text.TaskTextFormatter;
+import me.jacky.taskMaster.view.ActionbarTaskTicker;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
@@ -79,7 +81,7 @@ public final class Game {
     private static final long END_DELAY_TICKS = 200L;
 
     /** Advancement task prefix used in task strings. */
-    private static final String ACHIEVEMENT_TASK_PREFIX = "完成成就: ";
+    private static final String TASKKEY_ADV_PREFIX = "ADVANCEMENT:";
 
     /** Safety guard to avoid infinite loops when auto-completing tasks. */
     private static final int MAX_AUTOCOMPLETE_CHAIN = 10;
@@ -127,6 +129,8 @@ public final class Game {
 
     private int winScore = DEFAULT_WIN_SCORE;
 
+    private final TaskTextFormatter formatter;
+
     /**
      * 获取队伍配置管理器。
      *
@@ -142,10 +146,14 @@ public final class Game {
      * @param teamConfigManager 队伍配置管理器。
      * @param plugin 插件主类。
      */
-    public Game(final TeamConfigManager teamConfigManager, final JavaPlugin plugin, BonusManager bonusManager) {
+    public Game(final TeamConfigManager teamConfigManager,
+                final JavaPlugin plugin,
+                final BonusManager bonusManager,
+                final TaskTextFormatter formatter) {
         this.teamConfigManager = teamConfigManager;
         this.plugin = plugin;
         this.bonusManager = bonusManager;
+        this.formatter = formatter;
     }
 
     public BonusManager getBonusManager() {
@@ -236,10 +244,6 @@ public final class Game {
         TaskType(final String taskDescription) {
             this.description = taskDescription;
         }
-
-        public String getDescription() {
-            return description;
-        }
     }
 
     /**
@@ -260,31 +264,6 @@ public final class Game {
         taskTypeProbabilityWeights.put(TaskType.DEATH_TYPE, Math.max(0, deathType));
         taskTypeProbabilityWeights.put(TaskType.COMPLETE_ACHIEVEMENT, Math.max(0, advancement));
         taskTypeProbabilityWeights.put(TaskType.TYPE_CHAT, Math.max(0, chat));
-    }
-
-    /**
-     * 从 config.yml 读取某个任务类型完成后加多少分。
-     */
-    public int getPointsForTaskType(final TaskType type) {
-        if (type == TaskType.FIND_BLOCK) {
-            return plugin.getConfig().getInt(CFG_POINTS_BLOCK, 1);
-        }
-        if (type == TaskType.KILL_MOB) {
-            return plugin.getConfig().getInt(CFG_POINTS_ENTITY, 1);
-        }
-        if (type == TaskType.HAVE_ITEM) {
-            return plugin.getConfig().getInt(CFG_POINTS_HAVE_ITEM, 1);
-        }
-        if (type == TaskType.DEATH_TYPE) {
-            return plugin.getConfig().getInt(CFG_POINTS_DEATH_TYPE, 1);
-        }
-        if (type == TaskType.COMPLETE_ACHIEVEMENT) {
-            return plugin.getConfig().getInt(CFG_POINTS_ADVANCEMENT, 1);
-        }
-        if (type == TaskType.TYPE_CHAT) {
-            return plugin.getConfig().getInt(CFG_POINTS_CHAT, 1);
-        }
-        return 1;
     }
 
     /**
@@ -461,7 +440,7 @@ public final class Game {
 
     private void initializeTeamTasks() {
         Map<String, Map<String, Object>> allTeams = teamConfigManager.getAllTeamsInfo();
-
+        // red, green ...
         for (String teamName : allTeams.keySet()) {
             teamTasks.put(teamName, new TeamTask());
 
@@ -469,8 +448,8 @@ public final class Game {
             autoCompleteAdvancementTasks(teamName);
 
             Bukkit.broadcastMessage("队伍 " + teamName + " 的任务:");
-            for (String task : teamTasks.get(teamName).getActiveTasks()) {
-                Bukkit.broadcastMessage("  - " + task);
+            for (String taskRaw : teamTasks.get(teamName).getActiveTasks()) {
+                Bukkit.broadcastMessage("  - " + formatter.toDisplay(taskRaw));
             }
         }
     }
@@ -496,61 +475,39 @@ public final class Game {
 
     private TaskOutputData findBlockTask() {
         List<Material> pool = bonusManager.getBlockPool();
-        if (pool.isEmpty()) {
-            // 兜底：避免 yml 空导致崩溃
-            Material fallback = Material.DIAMOND_ORE;
-            return new TaskOutputData("找到 " + formatMaterialName(fallback.name()) + " 方块", fallback);
-        }
-
         Material block = pool.get(random.nextInt(pool.size()));
-        return new TaskOutputData("找到 " + formatMaterialName(block.name()) + " 方块", block);
+        String key = taskKeyBlockBreak(block);
+        return new TaskOutputData(key, block.name());
     }
 
 
     private TaskOutputData haveItemTask() {
         List<Material> pool = bonusManager.getItemPool();
-        if (pool.isEmpty()) {
-            Material fallback = Material.DIAMOND;
-            return new TaskOutputData("收集 " + formatMaterialName(fallback.name()) + " 物品", fallback);
-        }
-
         Material item = pool.get(random.nextInt(pool.size()));
-        return new TaskOutputData("收集 " + formatMaterialName(item.name()) + " 物品", item);
+        String key = taskKeyHaveItem(item);
+        return new TaskOutputData(key, item.name());
     }
 
     private TaskOutputData killMobTask() {
         List<EntityType> pool = bonusManager.getMobPool();
-        if (pool.isEmpty()) {
-            EntityType fallback = EntityType.SKELETON;
-            return new TaskOutputData("杀死一只 " + fallback, fallback);
-        }
-
         EntityType mob = pool.get(random.nextInt(pool.size()));
-        return new TaskOutputData("杀死一只 " + mob, mob);
+        String key = taskKeyKillMob(mob);
+        return new TaskOutputData(key, mob.name());
     }
 
     private TaskOutputData deathTypeTask() {
         List<EntityDamageEvent.DamageCause> pool = bonusManager.getDeathPool();
-        if (pool.isEmpty()) {
-            EntityDamageEvent.DamageCause fallback = EntityDamageEvent.DamageCause.DROWNING;
-            return new TaskOutputData("死于 " + fallback, fallback);
-        }
-
         EntityDamageEvent.DamageCause deathType = pool.get(random.nextInt(pool.size()));
-        return new TaskOutputData("死于 " + deathType, deathType);
+        String key = taskKeyDeathCause(deathType);
+        return new TaskOutputData(key, deathType.name());
     }
 
     private TaskOutputData achievementTask() {
         List<String> pool = bonusManager.getAdvancementPool();
-        if (pool.isEmpty()) {
-            String fallback = "story/mine_diamond";
-            return new TaskOutputData("完成成就: " + fallback, fallback);
-        }
-
         String achievement = pool.get(random.nextInt(pool.size()));
-        return new TaskOutputData("完成成就: " + achievement, achievement);
+        String key = taskKeyAdvancement(achievement);
+        return new TaskOutputData(key, achievement);
     }
-
 
     private TaskOutputData typeChatTask() {
         String chars =
@@ -562,22 +519,8 @@ public final class Game {
             code.append(chars.charAt(random.nextInt(chars.length())));
         }
 
-        return new TaskOutputData("在聊天框输入: " + code, code.toString());
-    }
-
-    private String formatMaterialName(final String materialName) {
-        String lowerCase = materialName.toLowerCase().replace('_', ' ');
-        java.util.regex.Pattern pattern =
-                java.util.regex.Pattern.compile("\\b(\\w)");
-        java.util.regex.Matcher matcher = pattern.matcher(lowerCase);
-
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
-        }
-        matcher.appendTail(sb);
-
-        return sb.toString();
+        String key = taskKeyChatCode(code.toString());
+        return new TaskOutputData(key, code.toString());
     }
 
     private void createScoreboard() {
@@ -765,11 +708,7 @@ public final class Game {
                     int taskNum = 1;
                     for (String task : tasks.getActiveTasks()) {
                         player.sendMessage(
-                                ChatColor.YELLOW
-                                        + Integer.toString(taskNum)
-                                        + ". "
-                                        + ChatColor.WHITE
-                                        + task
+                                ChatColor.YELLOW + Integer.toString(taskNum) + ". " + ChatColor.WHITE + formatter.toDisplay(task)
                         );
                         taskNum++;
                     }
@@ -1049,9 +988,8 @@ public final class Game {
 
             List<String> tasks = task.getActiveTasks();
             for (int i = 0; i < tasks.size(); i++) {
-                Bukkit.broadcastMessage(
-                        "  §f" + (i + 1) + ". §e" + tasks.get(i)
-                );
+                String display = formatter.toDisplay(tasks.get(i));
+                Bukkit.broadcastMessage("  §f" + (i + 1) + ". §e" + display);
             }
 
             Bukkit.broadcastMessage("");
@@ -1071,7 +1009,7 @@ public final class Game {
                                 + Integer.toString(i + 1)
                                 + ". "
                                 + ChatColor.WHITE
-                                + activeTasks.get(i)
+                                + formatter.toDisplay(activeTasks.get(i))
                 );
             }
         }
@@ -1173,15 +1111,13 @@ public final class Game {
         List<String> shortTasks = new ArrayList<>();
 
         for (int i = 0; i < max; i++) {
-            String t = tasks.get(i);
+            String display = formatter.toDisplay(tasks.get(i));
 
-            t = t.replace("找到 ", "")
-                    .replace("收集 ", "")
-                    .replace("完成成就: ", "成就 ")
-                    .replace("杀死一只 ", "击杀 ")
-                    .replace("死于 ", "死于 ");
+            if (display.length() > 18) {
+                display = display.substring(0, 18) + "...";
+            }
 
-            shortTasks.add(t);
+            shortTasks.add(display);
         }
 
         return "§b任务 §7| §f" + String.join(" §8• §f", shortTasks);
@@ -1198,11 +1134,11 @@ public final class Game {
             completedAny = false;
 
             for (String task : new ArrayList<>(getTeamActiveTasks(teamName))) {
-                if (!task.startsWith(ACHIEVEMENT_TASK_PREFIX)) {
+                if (!task.startsWith(TASKKEY_ADV_PREFIX)) {
                     continue;
                 }
 
-                String key = task.substring(ACHIEVEMENT_TASK_PREFIX.length()).trim();
+                String key = task.substring(TASKKEY_ADV_PREFIX.length()).trim();
                 if (!teamHasAdvancement(teamName, key)) {
                     continue;
                 }
@@ -1225,7 +1161,7 @@ public final class Game {
                                     + " 自动完成成就任务: "
                                     + key
                                     + " (已获得), +"
-                                    + Integer.toString(points)
+                                    + points
                                     + "分"
                     );
 
@@ -1259,5 +1195,29 @@ public final class Game {
             }
         }
         return false;
+    }
+
+    private String taskKeyBlockBreak(Material m) {
+        return "BLOCK_BREAK:" + m.name();
+    }
+
+    private String taskKeyHaveItem(Material m) {
+        return "HAVE_ITEM:" + m.name();
+    }
+
+    private String taskKeyKillMob(EntityType e) {
+        return "KILL_MOB:" + e.name();
+    }
+
+    private String taskKeyDeathCause(EntityDamageEvent.DamageCause c) {
+        return "DEATH_CAUSE:" + c.name();
+    }
+
+    private String taskKeyAdvancement(String key) {
+        return "ADVANCEMENT:" + key;
+    }
+
+    private String taskKeyChatCode(String code) {
+        return "CHAT_CODE:" + code;
     }
 }
