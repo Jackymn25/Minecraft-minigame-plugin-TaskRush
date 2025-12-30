@@ -1,0 +1,77 @@
+# =========================
+# TaskMaster - Advancements bonus
+# 最终得分 = complete-advancement-weight(基础分) + 这里的bonus
+# 写在这里的 key 才会进入“成就任务池”
+# =========================
+
+# --- 入门/很常见（bonus=0~1）---
+story/mine_stone: 0
+story/upgrade_tools: 0
+story/smelt_iron: 0
+story/iron_tools: 0
+story/obtain_armor: 0
+story/lava_bucket: 1
+story/deflect_arrow: 1     # 你原本就有 :contentReference[oaicite:2]{index=2}
+story/enchant_item: 1
+story/form_obsidian: 1
+story/enter_the_nether: 1
+story/enter_the_end: 2
+story/follow_ender_eye: 2
+story/cure_zombie_villager: 3
+
+# --- 中等（bonus=2~4）：需要探索/准备 ---
+story/mine_diamond: 2       # 你原本就有 :contentReference[oaicite:3]{index=3}
+
+nether/obtain_blaze_rod: 2
+nether/brew_potion: 2
+nether/find_fortress: 3
+nether/find_bastion: 4
+nether/obtain_ancient_debris: 4
+nether/loot_bastion: 3
+nether/distract_piglin: 2
+nether/charge_respawn_anchor: 2
+nether/ride_strider: 2
+
+end/elytra: 4
+end/dragon_breath: 3
+end/dragon_egg: 4
+end/respawn_dragon: 6
+
+adventure/summon_iron_golem: 2
+adventure/totem_of_undying: 5
+adventure/hero_of_the_village: 6
+adventure/sniper_duel: 6
+adventure/bullseye: 5
+
+husbandry/safely_harvest_honey: 1
+husbandry/plant_seed: 0
+husbandry/balanced_diet: 8
+husbandry/bred_all_animals: 10
+husbandry/complete_catalogue: 8
+husbandry/froglights: 7
+husbandry/obtain_netherite_hoe: 6
+husbandry/whole_pack: 7
+
+# --- 硬核/挑战（bonus=6~12）：极难、耗时、对局里很赚 ---
+nether/summon_wither: 8
+nether/create_beacon: 7
+nether/create_full_beacon: 10
+nether/netherite_armor: 9
+nether/all_potions: 10
+nether/all_effects: 12
+nether/uneasy_alliance: 12
+nether/return_to_sender: 9
+nether/fast_travel: 7
+nether/explore_nether: 7
+
+end/levitate: 9
+
+adventure/kill_all_mobs: 12
+adventure/adventuring_time: 12
+adventure/arbalistic: 10
+adventure/two_birds_one_arrow: 8
+adventure/blowback: 8
+adventure/overoverkill: 9
+adventure/trim_with_all_exclusive_armor_patterns: 12
+adventure/kill_mob_near_sculk_catalyst: 7
+adventure/revaulting: 5

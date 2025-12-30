@@ -1,0 +1,70 @@
+# =================================================
+# TaskMaster - Mobs bonus
+# 最终得分 = entity-weight(基础分) + bonus
+# 写在这里的 EntityType 才会进入“击杀生物”任务池
+# =================================================
+
+# ---------- 常见/白给（0） ----------
+SKELETON: 0
+ZOMBIE: 0
+SPIDER: 0
+CAVE_SPIDER: 1
+CREEPER: 1
+SLIME: 1
+DROWNED: 1
+HUSK: 1
+STRAY: 1
+WITCH: 2
+ENDERMITE: 2
+
+# ---------- 中等（2） ----------
+ENDERMAN: 2
+PILLAGER: 2
+VINDICATOR: 3
+EVOKER: 5
+RAVAGER: 5
+PHANTOM: 2
+BLAZE: 3
+MAGMA_CUBE: 2
+GHAST: 4
+PIGLIN: 2
+PIGLIN_BRUTE: 5
+WITHER_SKELETON: 4
+HOGLIN: 3
+ZOGLIN: 4
+STRIDER: 2
+
+# ---------- 地下/深暗之域（3~6） ----------
+SILVERFISH: 2
+SHULKER: 6
+WARDEN: 10          # 极高风险，不想上就删掉这一行
+
+# ---------- 水域/海洋（2~6） ----------
+GUARDIAN: 4
+ELDER_GUARDIAN: 9
+DOLPHIN: 3
+SQUID: 1
+GLOW_SQUID: 2
+TURTLE: 3
+PUFFERFISH: 2
+COD: 1
+SALMON: 1
+TROPICAL_FISH: 2
+
+# ---------- 末地（4~10） ----------
+ENDER_DRAGON: 30    # 你原本就有 :contentReference[oaicite:1]{index=1}
+
+# ---------- Boss/半Boss（8~10） ----------
+WITHER: 15           # 你原本就有 :contentReference[oaicite:2]{index=2}
+
+# ---------- 中立/动物（一般不建议放；想要“猎杀动物”玩法再启用） ----------
+# COW: 0
+# PIG: 0
+# SHEEP: 0
+# CHICKEN: 0
+RABBIT: 3
+GOAT: 3
+# HORSE: 1
+# LLAMA: 1
+# PANDA: 2
+# POLAR_BEAR: 2

@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 public class StartTaskRushCommand implements CommandExecutor {
 
     private final TaskMaster plugin;
@@ -31,8 +30,7 @@ public class StartTaskRushCommand implements CommandExecutor {
                 } else {
                     plugin.getConfig().set("game-status", true);
                     plugin.saveConfig();
-
-
+                    game.startGame();
                     Bukkit.broadcastMessage(ChatColor.GREEN + "TaskRush has been started.");
                 }
             }

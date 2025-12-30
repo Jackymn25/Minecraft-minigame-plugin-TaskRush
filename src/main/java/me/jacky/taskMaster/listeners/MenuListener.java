@@ -10,116 +10,108 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+/**
+ * Handles clicks in the team selection GUI.
+ */
 public class MenuListener implements Listener {
+
+    /** Team selection menu title (must match the GUI title). */
+    private static final String TEAM_SELECTION_MENU_TITLE =
+            ChatColor.GOLD + "Join Team";
+
+    /** Result code for closing the menu. */
+    private static final int CLOSE_RESULT = 8;
+
+    /** Result code indicating an invalid selection. */
+    private static final int INVALID_RESULT = -1;
 
     private final JoinTeamUseCase joinTeamUseCase;
 
-    public MenuListener(JoinTeamUseCase joinTeamUseCase) {
+    /**
+     * Creates a menu listener.
+     *
+     * @param joinTeamUseCase use case for joining teams
+     */
+    public MenuListener(final JoinTeamUseCase joinTeamUseCase) {
         this.joinTeamUseCase = joinTeamUseCase;
     }
 
+    /**
+     * Handles inventory clicks and routes team selection to the use case.
+     *
+     * @param event the inventory click event
+     */
     @EventHandler
-    public void onMenuClick(InventoryClickEvent e) {
-        // 获取点击菜单的玩家
-        Player player = (Player) e.getWhoClicked();
+    public void onMenuClick(final InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
 
-        // 定义菜单标题常量 - 与创建菜单时使用的标题一致
-        // 注意：这里应该使用金色"Join Team"，因为菜单创建时是ChatColor.GOLD + "Join Team"
-        final String TEAM_SELECTION_MENU = ChatColor.GOLD + "Join Team";
-
-        // 检查点击的菜单是否为我们的队伍选择菜单
-        // 注意：使用equals()而不是equalsIgnoreCase()，因为颜色代码区分大小写
-        if (e.getView().getTitle().equals(TEAM_SELECTION_MENU)) {
-
-            // 防止玩家将物品从菜单中拖出
-            e.setCancelled(true);
-
-            // 检查是否为有效的物品点击（避免点击空槽位）
-            if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
-                return;
-            }
-
-            int res = -1;
-
-            // 根据点击的物品类型执行相应操作
-            switch(e.getCurrentItem().getType()) {
-                case GREEN_WOOL:
-                    // 玩家点击绿队按钮
-                    player.sendMessage(ChatColor.GREEN + "你已加入绿队！");
-                    // 可以在此处添加将玩家加入绿队的逻辑
-                    // 例如：teamManager.joinTeam(player, "green");
-                    player.closeInventory(); // 关闭菜单
-                    res = 0;
-                    break;
-
-                case YELLOW_WOOL:
-                    // 玩家点击黄队按钮
-                    player.sendMessage(ChatColor.YELLOW + "你已加入黄队！");
-                    player.closeInventory();
-                    res = 1;
-                    break;
-
-                case RED_WOOL:
-                    // 玩家点击红队按钮
-                    player.sendMessage(ChatColor.RED + "你已加入红队！");
-                    player.closeInventory();
-                    res = 2;
-                    break;
-
-                case BLUE_WOOL:
-                    // 玩家点击蓝队按钮
-                    player.sendMessage(ChatColor.BLUE + "你已加入蓝队！");
-                    player.closeInventory();
-                    res = 3;
-                    break;
-
-                case PURPLE_WOOL:
-                    // 玩家点击紫队按钮
-                    player.sendMessage(ChatColor.DARK_PURPLE + "你已加入紫队！");
-                    player.closeInventory();
-                    res = 4;
-                    break;
-
-                case CYAN_WOOL:
-                    // 玩家点击青队按钮
-                    player.sendMessage(ChatColor.AQUA + "你已加入青队！");
-                    player.closeInventory();
-                    res = 5;
-                    break;
-
-                case PINK_WOOL:
-                    // 玩家点击粉队按钮
-                    player.sendMessage(ChatColor.LIGHT_PURPLE + "你已加入粉队！");
-                    player.closeInventory();
-                    res = 6;
-                    break;
-
-                case WHITE_WOOL:
-                    // 玩家点击白队按钮
-                    player.sendMessage(ChatColor.WHITE + "你已加入白队！");
-                    player.closeInventory();
-                    res = 7;
-                    break;
-
-                case BARRIER:
-                    // 如果添加了关闭按钮（索引8位置）
-                    player.sendMessage(ChatColor.RED + "已关闭队伍选择菜单");
-                    player.closeInventory();
-                    res = 8;
-                    break;
-
-                default:
-                    // 点击了其他物品（理论上不会发生，但作为安全处理）
-                    break;
-            }
-            if (res < 0) return;
-            joinTeamUseCase.join(new JoinTeamInputData(player, res));
-            // 可选：播放点击音效
-            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
+        if (!event.getView().getTitle().equals(TEAM_SELECTION_MENU_TITLE)) {
+            return;
         }
 
+        event.setCancelled(true);
+
+        if (event.getCurrentItem() == null
+                || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        int res = mapClickToResult(player, event.getCurrentItem().getType());
+        if (res < 0) {
+            return;
+        }
+
+        joinTeamUseCase.join(new JoinTeamInputData(player, res));
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
     }
 
+    /**
+     * Maps clicked item type to team selection result code.
+     *
+     * @param player the clicking player
+     * @param type the clicked item type
+     * @return result code used by JoinTeamUseCase
+     */
+    private int mapClickToResult(final Player player, final Material type) {
+        switch (type) {
+            case GREEN_WOOL:
+                player.sendMessage(ChatColor.GREEN + "你已加入绿队！");
+                player.closeInventory();
+                return 0;
+            case YELLOW_WOOL:
+                player.sendMessage(ChatColor.YELLOW + "你已加入黄队！");
+                player.closeInventory();
+                return 1;
+            case RED_WOOL:
+                player.sendMessage(ChatColor.RED + "你已加入红队！");
+                player.closeInventory();
+                return 2;
+            case BLUE_WOOL:
+                player.sendMessage(ChatColor.BLUE + "你已加入蓝队！");
+                player.closeInventory();
+                return 3;
+            case PURPLE_WOOL:
+                player.sendMessage(ChatColor.DARK_PURPLE + "你已加入紫队！");
+                player.closeInventory();
+                return 4;
+            case CYAN_WOOL:
+                player.sendMessage(ChatColor.AQUA + "你已加入青队！");
+                player.closeInventory();
+                return 5;
+            case PINK_WOOL:
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "你已加入粉队！");
+                player.closeInventory();
+                return 6;
+            case WHITE_WOOL:
+                player.sendMessage(ChatColor.WHITE + "你已加入白队！");
+                player.closeInventory();
+                return 7;
+            case BARRIER:
+                player.sendMessage(ChatColor.RED + "已关闭队伍选择菜单");
+                player.closeInventory();
+                return CLOSE_RESULT;
+            default:
+                return INVALID_RESULT;
+        }
+    }
 }
-
-

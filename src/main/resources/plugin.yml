@@ -9,10 +9,12 @@ commands:
     usage: /<command> Optional<Player>
     aliases:
       - delay
-  TaskMaster:
+  taskmaster:
     description: start game!
     usage: /<command>
   jointeam:
     description: join teams!
     usage: /<command>
-
+  canceltaskmaster:
+    description: Cancel and settle TaskMaster game immediately
+    usage: /canceltaskmaster

@@ -27,9 +27,5 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().setHealth(20);
             event.getPlayer().setFoodLevel(20);
         }
-        // plugin.getConfig().getStringList("xxx")
-        // setter
-        // plugin.getConfig().set("xxx", xxx);
-        // plugin.saveConfig();
     }
 }

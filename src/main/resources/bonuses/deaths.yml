@@ -1,0 +1,33 @@
+# =================================================
+# TaskMaster - Death Type bonus
+# 使用 EntityDamageEvent.DamageCause (Spigot)
+# 最终得分 = death-type-weight + bonus
+# =================================================
+
+# ---------- 极易（几乎白给，但仍需要操作） ----------
+FALL: 0              # 摔死（最基础）
+DROWNING: 1          # 溺水
+SUFFOCATION: 1       # 卡墙/沙子/方块内
+
+# ---------- 环境伤害（需要判断地形） ----------
+LAVA: 2              # 岩浆
+FIRE: 1              # 着火
+FIRE_TICK: 1         # 持续燃烧
+HOT_FLOOR: 1         # 岩浆块 / 灵魂火地（注意可选）
+CAMPFIRE: 1          # 营火
+CONTACT: 2           # 仙人掌 / 甜浆果丛
+
+# ---------- 下界 / 高风险环境 ----------
+MAGIC: 4             # 药水 / 龙息 / 凋零效果
+WITHER: 5            # 凋零状态
+DRAGON_BREATH: 10     # 末影龙吐息
+
+# ---------- 探索 / 冒险 ----------
+FREEZE: 3            # 粉雪冻死（1.17+）
+LIGHTNING: 2         # 雷击
+POISON: 5            # 中毒（致死需要技巧）
+STARVATION: 2        # 饥饿（需要刻意控制）
+
+# ---------- 特殊 / 少见但可控 ----------
+BLOCK_EXPLOSION: 3   # TNT / 重生锚爆炸
+ENTITY_EXPLOSION: 2  # 苦力怕 / 凋灵

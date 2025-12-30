@@ -1,6 +1,7 @@
 package me.jacky.taskMaster.commands;
 
 import me.jacky.taskMaster.TaskMaster;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,8 +18,11 @@ public class JoinTeamGUICommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("jointeam")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
+            if (sender instanceof Player player) {
+                if (plugin.getConfig().getBoolean("game-status")) {
+                    player.sendMessage(ChatColor.RED + "游戏进行中，无法加入/更换队伍！");
+                    return true;
+                }
                 plugin.openMainMenu(player); //Opens the main menu to this player
             }
         }

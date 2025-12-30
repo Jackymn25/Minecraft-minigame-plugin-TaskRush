@@ -1,3 +1,16 @@
 join-message: "This is from Task Master Plugin - Hi %name%"
 refresh-while-join: false
 game-status: false
+block-probability-weight: 19
+entity-hunt-probability-weight: 19
+have-item-probability-weight: 19
+death-type-probability-weight: 19
+complete-advancement-probability-weight: 19
+type-chat-probability-weight: 5
+block-weight: 1
+entity-weight: 1
+have-item-weight: 1
+death-type-weight: 1
+complete-advancement-weight: 1
+player-chat-weight: 1
+game-target-points: 30
