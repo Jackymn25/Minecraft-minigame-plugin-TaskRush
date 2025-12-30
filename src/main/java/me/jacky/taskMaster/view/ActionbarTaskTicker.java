@@ -1,5 +1,6 @@
-package me.jacky.taskMaster;
+package me.jacky.taskMaster.view;
 
+import me.jacky.taskMaster.Game;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
