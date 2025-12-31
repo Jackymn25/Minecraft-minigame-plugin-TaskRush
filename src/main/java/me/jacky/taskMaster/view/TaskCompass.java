@@ -1,4 +1,4 @@
-package me.jacky.taskMaster;
+package me.jacky.taskMaster.view;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

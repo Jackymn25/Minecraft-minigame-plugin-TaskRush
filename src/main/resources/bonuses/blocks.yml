@@ -2,11 +2,14 @@
 # TaskMaster - Blocks bonus (LARGE POOL VERSION)
 # blocks ≈ 150
 # =================================================
+# 设定方块任务列表和获得的 额外分（最终分数是基础分+额外分）
+# settings of block-type tasks (what specific tasks and how much bonus each earns) (int value is bonus)
+# (point = base(u cannot change) + bonus)
 
 # ---------- 矿物（主世界） ----------
-COAL_ORE: 1
+COAL_ORE: 0
 DEEPSLATE_COAL_ORE: 1
-COPPER_ORE: 1
+COPPER_ORE: 0
 DEEPSLATE_COPPER_ORE: 1
 IRON_ORE: 1
 DEEPSLATE_IRON_ORE: 1
@@ -21,7 +24,7 @@ DEEPSLATE_DIAMOND_ORE: 2
 
 # ---------- 洞穴 / 深层 ----------
 TUFF: 1
-CALCITE: 1
+CALCITE: 2
 DRIPSTONE_BLOCK: 2
 POINTED_DRIPSTONE: 2
 AMETHYST_BLOCK: 2
@@ -51,6 +54,7 @@ WARPED_STEM: 2
 NETHER_WART_BLOCK: 2
 WARPED_WART_BLOCK: 2
 SHROOMLIGHT: 3
+
 
 # ---------- 工艺 / 合成 ----------
 OBSIDIAN: 2
@@ -90,7 +94,7 @@ MOSS_BLOCK: 1
 ROOTED_DIRT: 1
 MYCELIUM: 2
 PODZOL: 2
-FARMLAND: 1
+FARMLAND: 0
 HAY_BLOCK: 1
 
 # ---------- 功能方块 ----------

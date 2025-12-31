@@ -231,30 +231,6 @@ public class TeamConfigManager {
     }
 
     /**
-     * Adds points to a team's score.
-     *
-     * @param teamName the team name
-     * @param points points to add
-     */
-    public void addTeamScore(final String teamName, final int points) {
-        String scorePath = "teams." + teamName + ".score";
-        int currentScore = config.getInt(scorePath, 0);
-        config.set(scorePath, currentScore + points);
-        saveConfig();
-    }
-
-    /**
-     * Sets a team's score.
-     *
-     * @param teamName the team name
-     * @param score the new score
-     */
-    public void setTeamScore(final String teamName, final int score) {
-        config.set("teams." + teamName + ".score", score);
-        saveConfig();
-    }
-
-    /**
      * Gets the colored display name by team id.
      *
      * @param teamId team id
@@ -280,16 +256,6 @@ public class TeamConfigManager {
      */
     public int getTeamPlayerCount(final String teamName) {
         return config.getStringList("teams." + teamName + ".players").size();
-    }
-
-    /**
-     * Checks whether a team has any players.
-     *
-     * @param teamName team name
-     * @return true if at least one player exists
-     */
-    public boolean hasPlayers(final String teamName) {
-        return getTeamPlayerCount(teamName) > 0;
     }
 
     /**
@@ -385,30 +351,6 @@ public class TeamConfigManager {
         }
 
         return teamPlayersMap;
-    }
-
-    /**
-     * Returns UUIDs of all players in teams (online and offline).
-     *
-     * @return list of player UUIDs
-     */
-    public List<UUID> getAllTeamPlayersUUIDs() {
-        List<UUID> allUUIDs = new ArrayList<>();
-
-        for (String teamName : teamNameToColor.keySet()) {
-            List<String> playerUUIDs =
-                    config.getStringList("teams." + teamName + ".players");
-
-            for (String uuidStr : playerUUIDs) {
-                try {
-                    allUUIDs.add(UUID.fromString(uuidStr));
-                } catch (IllegalArgumentException e) {
-                    plugin.getLogger().warning("无效的UUID格式: " + uuidStr);
-                }
-            }
-        }
-
-        return allUUIDs;
     }
 
     /**

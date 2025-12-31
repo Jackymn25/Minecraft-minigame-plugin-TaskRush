@@ -102,7 +102,6 @@ public class BonusManager {
         }
     }
 
-
     public int getBlockBonus(Material m) {
         return blockBonus.getOrDefault(m, 0);
     }

@@ -6,6 +6,7 @@ import me.jacky.taskMaster.commands.PingCommand;
 import me.jacky.taskMaster.commands.StartTaskRushCommand;
 import me.jacky.taskMaster.config.BonusManager;
 import me.jacky.taskMaster.config.TeamConfigManager;
+import me.jacky.taskMaster.game.Game;
 import me.jacky.taskMaster.listeners.MenuListener;
 import me.jacky.taskMaster.listeners.PlayerJoinListener;
 import me.jacky.taskMaster.listeners.RespawnListener;
@@ -13,6 +14,7 @@ import me.jacky.taskMaster.listeners.TaskCompassListener;
 import me.jacky.taskMaster.listeners.TaskGuiListener;
 import me.jacky.taskMaster.resolver.EntityTypeResolver;
 import me.jacky.taskMaster.resolver.MaterialResolver;
+import me.jacky.taskMaster.task.TaskChecker;
 import me.jacky.taskMaster.task.TaskParser;
 import me.jacky.taskMaster.text.LangManager;
 import me.jacky.taskMaster.text.TaskTextFormatter;
@@ -38,7 +40,6 @@ public final class TaskMaster extends JavaPlugin {
     private TaskChecker taskChecker;
     private StartTaskRushCommand taskMasterCommand;
 
-    // ===== new: text pipeline (single source of truth) =====
     private LangManager langManager;
     private TaskTextFormatter taskTextFormatter;
     private TaskParser taskParser;
@@ -134,7 +135,7 @@ public final class TaskMaster extends JavaPlugin {
     @Override
     public void onDisable() {
         if (game != null && game.isGameRunning()) {
-            game.endGame();
+            game.endGame(false); // 不显示统计，安静退出
         }
         getLogger().info("=== TaskMaster disabled ===");
     }

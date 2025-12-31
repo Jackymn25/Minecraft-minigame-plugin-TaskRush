@@ -1,9 +1,7 @@
-package me.jacky.taskMaster;
+package me.jacky.taskMaster.task;
 
 import me.jacky.taskMaster.config.TeamConfigManager;
-import me.jacky.taskMaster.task.TaskParser;
-import me.jacky.taskMaster.task.TaskSpec;
-import me.jacky.taskMaster.task.TaskType;
+import me.jacky.taskMaster.game.Game;
 import me.jacky.taskMaster.text.TaskTextFormatter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -217,7 +215,7 @@ public class TaskChecker implements Listener {
     }
 
     private void completeTask(final Player player, final String teamName, final String taskRaw, final int points) {
-        boolean success = game.completeTeamTask(teamName, taskRaw, points);
+        boolean success = game.completeTeamTask(teamName, taskRaw);
 
         if (success) {
             // 显示层统一走 formatter（逻辑依旧传 taskRaw）

@@ -1,77 +1,183 @@
-# =========================
-# TaskMaster - Advancements bonus
-# 最终得分 = complete-advancement-weight(基础分) + 这里的bonus
-# 写在这里的 key 才会进入“成就任务池”
-# =========================
+# 设定成就任务列表和获得的 额外分（最终分数是基础分+额外分）
+# settings of advancement-type tasks (what specific tasks and how much bonus each earns) (int value is bonus)
+# (point = base(u cannot change) + bonus)
 
-# --- 入门/很常见（bonus=0~1）---
+# 石器时代（挖到圆石）
 story/mine_stone: 0
+
+# 获得升级（制作石器）
 story/upgrade_tools: 0
+
+# 热乎的东西（熔炼铁锭）
 story/smelt_iron: 0
+
+# 合适的工具（制作铁工具）
 story/iron_tools: 0
+
+# 不穿盔甲可不行（穿上盔甲）
 story/obtain_armor: 0
+
+# 装岩浆）
 story/lava_bucket: 1
-story/deflect_arrow: 1     # 你原本就有 :contentReference[oaicite:2]{index=2}
-story/enchant_item: 1
+
+# 正面硬刚（用盾牌挡箭）
+story/deflect_arrow: 0
+
+# 附魔师（给物品附魔）
+story/enchant_item: 2
+
+# 制作黑曜石）
 story/form_obsidian: 1
-story/enter_the_nether: 1
-story/enter_the_end: 2
-story/follow_ender_eye: 2
-story/cure_zombie_villager: 3
 
-# --- 中等（bonus=2~4）：需要探索/准备 ---
-story/mine_diamond: 2       # 你原本就有 :contentReference[oaicite:3]{index=3}
+# 我们需要再深入一点（进入下界）
+story/enter_the_nether: 2
 
-nether/obtain_blaze_rod: 2
-nether/brew_potion: 2
-nether/find_fortress: 3
+# 结束？（进入末地）
+#story/enter_the_end: 2
+
+# 去往远方（追随末影之眼）
+#story/follow_ender_eye: 2
+
+# 治愈僵尸村民
+story/cure_zombie_villager: 6
+
+# 钻石！（获得钻石）
+story/mine_diamond: 2
+
+# 获得烈焰棒
+nether/obtain_blaze_rod: 5
+
+# 本地酿造（酿造药水）
+nether/brew_potion: 5
+
+# 可怕的堡垒（找到下界要塞）
+nether/find_fortress: 4
+
+# 猪灵堡垒
 nether/find_bastion: 4
+
+# nether/obtain_ancient_debris
 nether/obtain_ancient_debris: 4
-nether/loot_bastion: 3
+
+# nether/loot_bastion
+nether/loot_bastion: 4
+
+# nether/distract_piglin
 nether/distract_piglin: 2
-nether/charge_respawn_anchor: 2
-nether/ride_strider: 2
 
-end/elytra: 4
-end/dragon_breath: 3
-end/dragon_egg: 4
-end/respawn_dragon: 6
+# 充能重生锚
+nether/charge_respawn_anchor: 4
 
+# 骑上strider
+nether/ride_strider: 3
+
+# end/elytra
+#end/elytra: 45
+
+# end/dragon_breath
+#end/dragon_breath: 25
+
+# end/dragon_egg
+#end/dragon_egg: 30
+
+# end/respawn_dragon
+#end/respawn_dragon: 37
+
+# adventure/summon_iron_golem
 adventure/summon_iron_golem: 2
+
+# adventure/totem_of_undying
 adventure/totem_of_undying: 5
+
+# adventure/hero_of_the_village
 adventure/hero_of_the_village: 6
-adventure/sniper_duel: 6
-adventure/bullseye: 5
 
-husbandry/safely_harvest_honey: 1
+# adventure/sniper_duel
+adventure/sniper_duel: 3
+
+# adventure/bullseye
+adventure/bullseye: 2
+
+# husbandry/safely_harvest_honey
+husbandry/safely_harvest_honey: 5
+
+# husbandry/plant_seed
 husbandry/plant_seed: 0
-husbandry/balanced_diet: 8
-husbandry/bred_all_animals: 10
-husbandry/complete_catalogue: 8
-husbandry/froglights: 7
+
+# husbandry/balanced_diet
+#husbandry/balanced_diet: 30
+
+# husbandry/bred_all_animals
+#husbandry/bred_all_animals: 25
+
+# husbandry/complete_catalogue
+#husbandry/complete_catalogue: 23
+
+# husbandry/froglights
+husbandry/froglights: 6
+
+# husbandry/obtain_netherite_hoe
 husbandry/obtain_netherite_hoe: 6
-husbandry/whole_pack: 7
 
-# --- 硬核/挑战（bonus=6~12）：极难、耗时、对局里很赚 ---
-nether/summon_wither: 8
-nether/create_beacon: 7
-nether/create_full_beacon: 10
-nether/netherite_armor: 9
-nether/all_potions: 10
-nether/all_effects: 12
-nether/uneasy_alliance: 12
-nether/return_to_sender: 9
-nether/fast_travel: 7
-nether/explore_nether: 7
+# husbandry/whole_pack
+#husbandry/whole_pack: 25
 
-end/levitate: 9
+# nether/summon_wither
+#nether/summon_wither: 23
 
-adventure/kill_all_mobs: 12
-adventure/adventuring_time: 12
-adventure/arbalistic: 10
-adventure/two_birds_one_arrow: 8
-adventure/blowback: 8
-adventure/overoverkill: 9
-adventure/trim_with_all_exclusive_armor_patterns: 12
-adventure/kill_mob_near_sculk_catalyst: 7
-adventure/revaulting: 5
+# nether/create_beacon
+#nether/create_beacon: 24
+
+# nether/create_full_beacon
+#nether/create_full_beacon: 30
+
+# nether/netherite_armor
+#nether/netherite_armor: 30
+
+# nether/all_potions
+#nether/all_potions: 30
+
+# nether/all_effects
+#nether/all_effects: 99
+
+# 不稳定的同盟（把恶魂带到主世界击杀）
+#nether/uneasy_alliance: 30
+
+# nether/return_to_sender
+nether/return_to_sender: 3
+
+# nether/fast_travel
+nether/fast_travel: 3
+
+# nether/explore_nether
+nether/explore_nether: 5
+
+# end/levitate
+#end/levitate: 35
+
+# adventure/kill_all_mobs
+#adventure/kill_all_mobs: 99
+
+# adventure/adventuring_time
+#adventure/adventuring_time: 99
+
+# adventure/arbalistic
+adventure/arbalistic: 20
+
+# adventure/two_birds_one_arrow
+adventure/two_birds_one_arrow: 20
+
+# adventure/blowback
+#adventure/blowback: 8
+
+## adventure/overoverkill
+#adventure/overoverkill: 9
+
+# adventure/trim_with_all_exclusive_armor_patterns
+#adventure/trim_with_all_exclusive_armor_patterns: 30
+
+# adventure/kill_mob_near_sculk_catalyst
+adventure/kill_mob_near_sculk_catalyst: 15
+
+# adventure/revaulting
+#adventure/revaulting: 5
