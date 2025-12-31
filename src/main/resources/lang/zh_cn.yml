@@ -1,3 +1,8 @@
+## -------------------- ##
+# 游戏主翻译文件
+# This is a chinese (cn) translation config
+# 作者: Jacky
+# Author: Jacky
 materials:
   AMETHYST_BLOCK: 紫水晶块
   AMETHYST_SHARD: 紫水晶碎片
@@ -238,9 +243,9 @@ deaths:
   DROWNING: 溺水
   ENTITY_EXPLOSION: 实体爆炸
   FALL: 摔落
-  FIRE: 火焰
+  FIRE: 烈焰
   FIRE_TICK: 燃烧
-  FREEZE: 冻死
+  FREEZE: 低温
   HOT_FLOOR: 灼热地面
   LAVA: 岩浆
   LIGHTNING: 雷击
@@ -249,3 +254,65 @@ deaths:
   STARVATION: 饥饿
   SUFFOCATION: 窒息
   WITHER: 凋零
+advancements:
+  story/mine_stone: "石器时代"
+  story/upgrade_tools: "获得升级"
+  story/smelt_iron: "硬起来"
+  story/iron_tools: "这就是铁镐"
+  story/obtain_armor: "整装上阵"
+  story/lava_bucket: "岩浆"
+  story/deflect_arrow: "我不吃这套"
+  story/enchant_item: "附魔师"
+  story/form_obsidian: "冰桶挑战"
+  story/enter_the_nether: "我们需要再深入一点"
+  story/enter_the_end: "结束了"
+  story/follow_ender_eye: "隔墙有眼"
+  story/cure_zombie_villager: "治愈僵尸村民"
+  story/mine_diamond: "钻石！"
+  nether/obtain_blaze_rod: "与火共舞"
+  nether/brew_potion: "本地酿造"
+  nether/find_fortress: "可怕的堡垒"
+  nether/find_bastion: "光辉岁月"
+  nether/obtain_ancient_debris: "深藏不漏"
+  nether/loot_bastion: "战猪"
+  nether/distract_piglin: "金光闪闪"
+  nether/charge_respawn_anchor: "锚没有九条命"
+  nether/ride_strider: "岩浆行者"
+  nether/summon_wither: "凋灵！"
+  nether/create_beacon: "信标！"
+  nether/create_full_beacon: "完整信标！"
+  nether/netherite_armor: "身裹残骸"
+  nether/all_potions: "狂乱的鸡尾酒"
+  nether/all_effects: "为什么会变成这样呢"
+  nether/uneasy_alliance: "不稳定的同盟"
+  nether/return_to_sender: "见鬼去吧"
+  nether/fast_travel: "曲速泡"
+  nether/explore_nether: "热门景点"
+  end/elytra: "天空即为极限"
+  end/dragon_breath: "你需要来点薄荷糖"
+  end/dragon_egg: "下一世代"
+  end/respawn_dragon: "结束？再一次"
+  end/levitate: "这上面风景不错"
+  adventure/summon_iron_golem: "招募援兵"
+  adventure/totem_of_undying: "超越生死"
+  adventure/hero_of_the_village: "村庄英雄"
+  adventure/sniper_duel: "狙击手的对决"
+  adventure/bullseye: "正中靶心"
+  adventure/kill_all_mobs: "资深怪物猎人"
+  adventure/adventuring_time: "探索时光"
+  adventure/arbalistic: "劲弩手"
+  adventure/two_birds_one_arrow: "一箭双雕"
+#  adventure/blowback: "气弹反冲（文盲了）"
+#  adventure/overoverkill: "过度过度杀戮（文盲了）"
+  adventure/trim_with_all_exclusive_armor_patterns: "匠心独具"
+  adventure/kill_mob_near_sculk_catalyst: "它蔓延了"
+#  adventure/revaulting: "我是文盲"
+  husbandry/safely_harvest_honey: "与蜂共舞"
+  husbandry/plant_seed: "开荒垦地"
+  husbandry/balanced_diet: "均衡饮食"
+  husbandry/bred_all_animals: "成双成对"
+  husbandry/complete_catalogue: "百猫全书"
+  husbandry/froglights: "相映成辉"
+  husbandry/obtain_netherite_hoe: "终极奉献"
+#  husbandry/whole_pack: "整整一群" 不知道了
+

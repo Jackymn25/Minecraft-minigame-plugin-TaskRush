@@ -3,68 +3,71 @@
 # 最终得分 = entity-weight(基础分) + bonus
 # 写在这里的 EntityType 才会进入“击杀生物”任务池
 # =================================================
+# 设定怪物猎杀任务列表和获得的 额外分（最终分数是基础分+额外分）
+# settings of mob-hunt-type tasks (what specific tasks and how much bonus each earns) (int value is bonus)
+# (point = base(u cannot change) + bonus)
 
 # ---------- 常见/白给（0） ----------
 SKELETON: 0
 ZOMBIE: 0
 SPIDER: 0
-CAVE_SPIDER: 1
+CAVE_SPIDER: 3
 CREEPER: 1
-SLIME: 1
-DROWNED: 1
-HUSK: 1
-STRAY: 1
-WITCH: 2
-ENDERMITE: 2
+SLIME: 5
+DROWNED: 2
+HUSK: 4
+STRAY: 5
+WITCH: 3
+ENDERMITE: 6
 
 # ---------- 中等（2） ----------
 ENDERMAN: 2
-PILLAGER: 2
-VINDICATOR: 3
+PILLAGER: 5
+VINDICATOR: 5
 EVOKER: 5
-RAVAGER: 5
-PHANTOM: 2
-BLAZE: 3
-MAGMA_CUBE: 2
+RAVAGER: 6
+PHANTOM: 4
+BLAZE: 4
+MAGMA_CUBE: 4
 GHAST: 4
-PIGLIN: 2
-PIGLIN_BRUTE: 5
+PIGLIN: 3
+PIGLIN_BRUTE: 6
 WITHER_SKELETON: 4
-HOGLIN: 3
-ZOGLIN: 4
-STRIDER: 2
+HOGLIN: 4
+ZOGLIN: 5
+STRIDER: 4
 
 # ---------- 地下/深暗之域（3~6） ----------
-SILVERFISH: 2
-SHULKER: 6
-WARDEN: 10          # 极高风险，不想上就删掉这一行
+SILVERFISH: 5
+#SHULKER: 66
+WARDEN: 30          # 极高风险，不想上就删掉这一行
 
 # ---------- 水域/海洋（2~6） ----------
-GUARDIAN: 4
-ELDER_GUARDIAN: 9
-DOLPHIN: 3
+GUARDIAN: 6
+ELDER_GUARDIAN: 15
+DOLPHIN: 5
 SQUID: 1
-GLOW_SQUID: 2
-TURTLE: 3
-PUFFERFISH: 2
-COD: 1
-SALMON: 1
-TROPICAL_FISH: 2
+GLOW_SQUID: 8
+TURTLE: 6
+PUFFERFISH: 6
+COD: 2
+SALMON: 2
+TROPICAL_FISH: 3
 
 # ---------- 末地（4~10） ----------
-ENDER_DRAGON: 30    # 你原本就有 :contentReference[oaicite:1]{index=1}
+#ENDER_DRAGON: 30    # 你原本就有 :contentReference[oaicite:1]{index=1}
 
 # ---------- Boss/半Boss（8~10） ----------
-WITHER: 15           # 你原本就有 :contentReference[oaicite:2]{index=2}
+#WITHER: 30           # 你原本就有 :contentReference[oaicite:2]{index=2}
 
 # ---------- 中立/动物（一般不建议放；想要“猎杀动物”玩法再启用） ----------
-# COW: 0
-# PIG: 0
-# SHEEP: 0
-# CHICKEN: 0
+COW: 0
+PIG: 0
+SHEEP: 0
+CHICKEN: 0
 RABBIT: 3
 GOAT: 3
-# HORSE: 1
+HORSE: 1
 # LLAMA: 1
 # PANDA: 2
-# POLAR_BEAR: 2
+POLAR_BEAR: 5

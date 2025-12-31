@@ -34,31 +34,9 @@ public class TaskTextFormatter {
             case DEATH_CAUSE:
                 return "死于 " + zh(spec.deathCauseTarget);
             case ADVANCEMENT:
-                return "完成成就: " + safe(spec.advancementKeyTarget);
+                return "成就:" + zh(spec.advancementKeyTarget);
             case CHAT_CODE:
                 return "在聊天框输入: " + safe(spec.chatCodeTarget);
-            default:
-                return taskRaw; // 兜底
-        }
-    }
-
-    /** 短文本：用于 ActionBar */
-    public String toShortDisplay(String taskRaw) {
-        TaskSpec spec = parser.parse(taskRaw);
-
-        switch (spec.type) {
-            case BLOCK_BREAK:
-                return "找到 " + zh(spec.materialTarget);
-            case HAVE_ITEM:
-                return "收集 " + zh(spec.materialTarget);
-            case KILL_MOB:
-                return "击杀 " + zh(spec.entityTarget);
-            case DEATH_CAUSE:
-                return "死于 " + zh(spec.deathCauseTarget);
-            case ADVANCEMENT:
-                return "成就 " + safe(spec.advancementKeyTarget);
-            case CHAT_CODE:
-                return "输入 " + safe(spec.chatCodeTarget);
             default:
                 return taskRaw;
         }
@@ -77,6 +55,11 @@ public class TaskTextFormatter {
     private String zh(EntityDamageEvent.DamageCause c) {
         if (c == null) return "UNKNOWN";
         return lang.death(c.name());
+    }
+
+    private String zh(String key) {
+        if (key == null) return "UNKNOWN";
+        return lang.advancement(key);
     }
 
     private String safe(String s) {

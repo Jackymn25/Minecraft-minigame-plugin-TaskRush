@@ -1,4 +1,5 @@
 join-message: "This is from Task Master Plugin - Hi %name%"
+language: zh_cn
 refresh-while-join: false
 game-status: false
 block-probability-weight: 19

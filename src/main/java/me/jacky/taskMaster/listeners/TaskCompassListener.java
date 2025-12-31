@@ -1,7 +1,7 @@
 package me.jacky.taskMaster.listeners;
 
-import me.jacky.taskMaster.Game;
-import me.jacky.taskMaster.TaskCompass;
+import me.jacky.taskMaster.game.Game;
+import me.jacky.taskMaster.view.TaskCompass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -97,8 +97,7 @@ public class TaskCompassListener implements Listener {
                 continue;
             }
 
-            boolean isSelf = viewerTeam != null && team.equalsIgnoreCase(viewerTeam);
-            meta.setDisplayName((isSelf ? ChatColor.GREEN : ChatColor.RED) + "队伍: " + team);
+            meta.setDisplayName("队伍: " + team);
 
             List<String> tasks = game.getTeamActiveTasks(team);
 

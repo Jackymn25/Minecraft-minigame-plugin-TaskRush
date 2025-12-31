@@ -1,5 +1,5 @@
 package me.jacky.taskMaster.commands;
-import me.jacky.taskMaster.Game;
+import me.jacky.taskMaster.game.Game;
 import me.jacky.taskMaster.TaskMaster;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
