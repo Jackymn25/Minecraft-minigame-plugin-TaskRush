@@ -92,15 +92,15 @@ public final class PlayerSetupService {
                 player.getWorld().setGameRule(GameRule.KEEP_INVENTORY, true);
 
                 player.sendTitle(
-                        ChatColor.GOLD + "任务大师游戏开始！",
-                        ChatColor.YELLOW + "你有3个任务需要完成",
+                        ChatColor.GOLD + "Game starts!!！",
+                        ChatColor.YELLOW + "Your team has 3 tasks",
                         START_TITLE_FADE_IN,
                         START_TITLE_STAY,
                         START_TITLE_FADE_OUT
                 );
 
                 // send tasks
-                player.sendMessage(ChatColor.GOLD + "========== 你的任务 ==========");
+                player.sendMessage(ChatColor.GOLD + "========== Tasks ==========");
                 TeamState tasks = teamTasks.get(teamName);
                 if (tasks != null) {
                     int taskNum = 1;
@@ -132,8 +132,8 @@ public final class PlayerSetupService {
                 scoreboardService.applyToPlayer(player);
             }
 
-            player.sendMessage("§b你尚未选择队伍，已进入旁观模式。");
-            player.sendMessage("§7使用指南针可以查看任务/队伍信息。");
+            player.sendMessage("§bYou haven't joined a team, you are assigned to spectators!");
+            player.sendMessage("§7Right click compass to find out more info");
         }
     }
 
@@ -147,8 +147,6 @@ public final class PlayerSetupService {
             if (!player.getInventory().contains(Material.COMPASS)) {
                 player.getInventory().addItem(compass.clone());
             }
-
-            player.sendMessage(ChatColor.AQUA + "你获得了速度和跳跃提升效果，持续60秒！");
         }
     }
 }

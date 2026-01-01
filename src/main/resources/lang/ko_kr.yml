@@ -315,3 +315,12 @@ advancements:
   husbandry/froglights: "개구리와 빛"
   husbandry/obtain_netherite_hoe: "최고급 헌신"
   # husbandry/whole_pack: "(미정)"
+ui:
+  task_block_break: "{target} 파괴"
+  task_have_item: "{target} 획득"
+  task_kill_mob: "{target} 처치"
+  task_death_cause: "{target}로 사망"
+  task_advancement: "발전 과제: {target}"
+  task_chat_code: "입력: {target}"
+  unknown: "알 수 없음"
+

@@ -43,7 +43,7 @@ public final class Game {
     private final Random random = new Random();
     /** 插件主类引用。 */
     private final JavaPlugin plugin;
-    /** ActionBar ticker。 */
+    /** ActionBar ticker。这里不用接口反向dip是因为觉得这个不会有人改 */
     private ActionbarTaskTicker actionbarTicker;
     /** 存储每个队伍的任务和分数。 */
     private final Map<String, TeamState> teamTasks = new HashMap<>();
@@ -105,10 +105,10 @@ public final class Game {
         if (!hasAnyTeamPlayerOnline()) {
             Bukkit.broadcastMessage(
                     ChatColor.RED
-                            + "无法开始：没有任何玩家选择队伍（全员旁观者）。"
+                            + "Unable to start, use /jointeam to join first"
             );
             Bukkit.broadcastMessage(
-                    ChatColor.GRAY
+                    ChatColor.RED
                             + "请先使用 /jointeam 选择队伍后再开始。"
             );
 
@@ -118,9 +118,13 @@ public final class Game {
         }
 
         // 每局开始前 reload 一次，保证 config 修改能生效
-        plugin.reloadConfig();
+        if (plugin instanceof me.jacky.taskMaster.TaskMaster) {
+            ((me.jacky.taskMaster.TaskMaster) plugin).reloadAll();
+        } else {
+            plugin.reloadConfig();
+            bonusManager.reload();
+        }
         taskGenerator.reloadWeightsFromConfig();
-        bonusManager.reload();
 
         winScore = plugin.getConfig().getInt(CFG_GAME_TARGET_POINTS, DEFAULT_WIN_SCORE);
         if (winScore <= 0) {
@@ -140,10 +144,13 @@ public final class Game {
         actionbarTicker.start();
 
         Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "任务大师游戏开始！");
+        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Game Starts!");
         Bukkit.broadcastMessage(
                 ChatColor.YELLOW + "规则：最先达到" + winScore + "分的队伍获胜！"
         );
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "完成任务会立即刷新新任务！");
+        Bukkit.broadcastMessage(
+                ChatColor.YELLOW + "WinScore: " + winScore
+        );
     }
 
     private void initializeTeamTasks() {
@@ -155,7 +162,7 @@ public final class Game {
             // 初始化后如果刷到了“已获得的成就”，直接补分并继续刷新
             autoCompleteAdvancementTasks(teamName);
 
-            Bukkit.broadcastMessage("队伍 " + teamName + " 的任务:");
+            Bukkit.broadcastMessage("Team " + teamName + " task list:");
             for (String taskRaw : teamTasks.get(teamName).getActiveTasks()) {
                 Bukkit.broadcastMessage("  - " + formatter.toDisplay(taskRaw));
             }
@@ -234,6 +241,7 @@ public final class Game {
         List<Player> players = teamConfigManager.getOnlinePlayersByTeam(teamName);
         for (Player player : players) {
             player.sendMessage(ChatColor.GREEN + "你的队伍获得了 " + points + " 分！");
+            player.sendMessage(ChatColor.GREEN + "Your team just earned " + points + " pts！");
             player.sendMessage(
                     ChatColor.GREEN
                             + "当前总分: "
@@ -278,9 +286,9 @@ public final class Game {
             notifyNewTask(teamName, teamTask.getActiveTasks());
             Bukkit.broadcastMessage(
                     teamName
-                            + " 完成了一项任务,获得"
+                            + " Completed a task"
                             + points
-                            + "分"
+                            + "pts"
             );
 
             broadcastAllTeamTasks();
@@ -294,7 +302,7 @@ public final class Game {
      * 广播所有队伍的当前任务（只读展示，不修改数据）。
      */
     public void broadcastAllTeamTasks() {
-        Bukkit.broadcastMessage("§8━━━━━━━━━━ §6当前任务一览 §8━━━━━━━━━━");
+        Bukkit.broadcastMessage("§8━━━━━━━━━━ §6Tasks §8━━━━━━━━━━");
 
         for (Map.Entry<String, TeamState> entry : teamTasks.entrySet()) {
             String teamName = entry.getKey();
@@ -304,7 +312,7 @@ public final class Game {
             String color = (String) teamInfo.get("color");
             String displayName = (String) teamInfo.get("display-name");
 
-            Bukkit.broadcastMessage(color + "§l" + displayName + " 队伍:");
+            Bukkit.broadcastMessage(color + "§l" + displayName + " Team:");
 
             List<String> tasks = task.getActiveTasks();
             for (int i = 0; i < tasks.size(); i++) {
@@ -322,7 +330,7 @@ public final class Game {
         List<Player> players = teamConfigManager.getOnlinePlayersByTeam(teamName);
 
         for (Player player : players) {
-            player.sendMessage(ChatColor.AQUA + "✧ 任务已刷新！新任务列表:");
+            player.sendMessage(ChatColor.AQUA + "✧ New task list:");
             for (int i = 0; i < activeTasks.size(); i++) {
                 player.sendMessage(
                         ChatColor.YELLOW
@@ -362,7 +370,7 @@ public final class Game {
             shortTasks.add(display);
         }
 
-        return "§b任务 §7| §f" + String.join(" §8• §f", shortTasks);
+        return "§bTasks §7| §f" + String.join(" §8• §f", shortTasks);
     }
 
     /**
@@ -398,11 +406,11 @@ public final class Game {
 
                     Bukkit.broadcastMessage(
                             teamName
-                                    + " 自动完成成就任务: "
+                                    + " Auto Completer: "
                                     + key
-                                    + " (已获得), +"
+                                    + " (earned), +"
                                     + points
-                                    + "分"
+                                    + "pts"
                     );
 
                     notifyNewTask(teamName, teamTask.getActiveTasks());

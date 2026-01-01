@@ -46,13 +46,13 @@ public class JoinTeamUseCase {
         // Validate teamId.
         String teamName = teamConfigManager.getTeamNameById(teamId);
         if (teamName == null) {
-            player.sendMessage(ChatColor.RED + "无效的队伍选择！");
+            player.sendMessage(ChatColor.RED + "INVALID TEAM ID");
             return;
         }
 
         // Check capacity.
         if (teamConfigManager.isTeamFull(teamName)) {
-            player.sendMessage(ChatColor.RED + "该队伍已满员，请选择其他队伍！");
+            player.sendMessage(ChatColor.RED + "Team is full");
             return;
         }
 
@@ -68,27 +68,26 @@ public class JoinTeamUseCase {
 
             if (previousTeam != null && previousTeam.equals(teamName)) {
                 player.sendMessage(
-                        ChatColor.YELLOW + "你已经在"
+                        ChatColor.YELLOW + "You are already in this team"
                                 + displayName
-                                + ChatColor.YELLOW + "中了！"
                 );
             } else {
                 player.sendMessage(
-                        ChatColor.GREEN + "你已成功加入"
+                        ChatColor.GREEN + "You joined the team"
                                 + displayName
                                 + ChatColor.GREEN + "！"
                 );
 
                 // Broadcast to other players (optional).
                 String broadcastMessage = ChatColor.GRAY + player.getName()
-                        + ChatColor.WHITE + " 加入了 " + displayName;
+                        + ChatColor.WHITE + " joined " + displayName;
                 Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(broadcastMessage));
 
                 // Show team info.
                 displayTeamInfo(player, teamName);
             }
         } else {
-            player.sendMessage(ChatColor.RED + "加入队伍失败，请稍后再试！");
+            player.sendMessage(ChatColor.RED + "failed to join team, try again");
         }
     }
 
@@ -101,55 +100,21 @@ public class JoinTeamUseCase {
     private void displayTeamInfo(final Player player, final String teamName) {
         Map<String, Object> teamInfo = teamConfigManager.getTeamInfo(teamName);
 
-        player.sendMessage(ChatColor.GOLD + "========== 队伍信息 ==========");
+        player.sendMessage(ChatColor.GOLD + "========== Team Info ==========");
         player.sendMessage(
-                ChatColor.WHITE + "队伍: "
+                ChatColor.WHITE + "Team Name: "
                         + teamInfo.get("color")
                         + teamInfo.get("display-name")
         );
         player.sendMessage(
-                ChatColor.WHITE + "当前人数: "
+                ChatColor.WHITE + "Team size: "
                         + ChatColor.YELLOW + teamInfo.get("player-count")
                         + ChatColor.WHITE + "/" + teamInfo.get("max-players")
         );
         player.sendMessage(
-                ChatColor.WHITE + "当前分数: "
+                ChatColor.WHITE + "pts: "
                         + ChatColor.GREEN + teamInfo.get("score")
         );
         player.sendMessage(ChatColor.GOLD + "============================");
-    }
-
-    /**
-     * Displays all teams information (for GUI display or other purposes).
-     *
-     * @param player player to receive messages
-     */
-    public void displayAllTeamsInfo(final Player player) {
-        Map<String, Map<String, Object>> allTeams = teamConfigManager.getAllTeamsInfo();
-
-        player.sendMessage(ChatColor.GOLD + "========== 所有队伍信息 ==========");
-        allTeams.forEach((teamName, info) -> {
-            boolean hasPlayers = (boolean) info.get("has-players");
-            String status = hasPlayers
-                    ? ChatColor.GREEN + "有玩家"
-                    : ChatColor.RED + "空队伍";
-
-            String line = String.format(
-                    "%s%s %s- %s 人数: %s%d/%d %s- 分数: %s%d",
-                    info.get("color"),
-                    info.get("display-name"),
-                    ChatColor.WHITE,
-                    status,
-                    ChatColor.YELLOW,
-                    info.get("player-count"),
-                    info.get("max-players"),
-                    ChatColor.WHITE,
-                    ChatColor.GREEN,
-                    info.get("score")
-            );
-
-            player.sendMessage(line);
-        });
-        player.sendMessage(ChatColor.GOLD + "=================================");
     }
 }

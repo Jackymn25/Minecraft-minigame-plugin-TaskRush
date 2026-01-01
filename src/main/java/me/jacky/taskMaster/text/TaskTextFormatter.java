@@ -26,43 +26,48 @@ public class TaskTextFormatter {
 
         switch (spec.type) {
             case BLOCK_BREAK:
-                return "找到 " + zh(spec.materialTarget) + " 方块";
+                return render(lang.ui("task_block_break"), zh(spec.materialTarget));
             case HAVE_ITEM:
-                return "收集 " + zh(spec.materialTarget) + " 物品";
+                return render(lang.ui("task_have_item"), zh(spec.materialTarget));
             case KILL_MOB:
-                return "杀死一只 " + zh(spec.entityTarget);
+                return render(lang.ui("task_kill_mob"), zh(spec.entityTarget));
             case DEATH_CAUSE:
-                return "死于 " + zh(spec.deathCauseTarget);
+                return render(lang.ui("task_death_cause"), zh(spec.deathCauseTarget));
             case ADVANCEMENT:
-                return "成就:" + zh(spec.advancementKeyTarget);
+                return render(lang.ui("task_advancement"), zh(spec.advancementKeyTarget));
             case CHAT_CODE:
-                return "在聊天框输入: " + safe(spec.chatCodeTarget);
+                return render(lang.ui("task_chat_code"), safe(spec.chatCodeTarget));
             default:
                 return taskRaw;
         }
     }
 
+    private String render(String template, String target) {
+        if (template == null || template.trim().isEmpty()) {
+            // 如果 ui 没写，就退回一个最简单拼接，避免 NPE
+            return target == null ? lang.unknown() : target;
+        }
+        if (target == null) target = lang.unknown();
+        return template.replace("{target}", target);
+    }
+
     private String zh(Material m) {
-        if (m == null) return "UNKNOWN";
+        if (m == null) return lang.unknown();
         return lang.material(m.name());
     }
-
     private String zh(EntityType e) {
-        if (e == null) return "UNKNOWN";
+        if (e == null) return lang.unknown();
         return lang.entity(e.name());
     }
-
     private String zh(EntityDamageEvent.DamageCause c) {
-        if (c == null) return "UNKNOWN";
+        if (c == null) return lang.unknown();
         return lang.death(c.name());
     }
-
     private String zh(String key) {
-        if (key == null) return "UNKNOWN";
+        if (key == null) return lang.unknown();
         return lang.advancement(key);
     }
-
     private String safe(String s) {
-        return s == null ? "UNKNOWN" : s;
+        return s == null ? lang.unknown() : s;
     }
 }

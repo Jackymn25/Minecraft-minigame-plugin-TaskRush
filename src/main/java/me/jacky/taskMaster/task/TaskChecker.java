@@ -221,8 +221,8 @@ public class TaskChecker implements Listener {
             // 显示层统一走 formatter（逻辑依旧传 taskRaw）
             String display = formatter.toDisplay(taskRaw);
 
-            player.sendMessage(ChatColor.GREEN + "✓ 完成任务: " + ChatColor.YELLOW + display);
-            player.sendMessage(ChatColor.GREEN + "  获得 " + points + " 分！");
+            player.sendMessage(ChatColor.GREEN + "✓ Task completed: " + ChatColor.YELLOW + display);
+            player.sendMessage(ChatColor.GREEN + "  earned " + points + " pts！");
 
             player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
 
@@ -241,7 +241,7 @@ public class TaskChecker implements Listener {
                     Map<String, Object> info = teamConfigManager.getTeamInfo(winningTeam);
                     String color = (String) info.getOrDefault("color", "§f");
                     String displayName = (String) info.getOrDefault("display-name", winningTeam);
-                    player.sendMessage(ChatColor.GOLD + "🎉 游戏结束！获胜队伍: " + color + displayName);
+                    player.sendMessage(ChatColor.GOLD + "🎉 Game ends！Winning team: " + color + displayName);
                 }
             }
         }

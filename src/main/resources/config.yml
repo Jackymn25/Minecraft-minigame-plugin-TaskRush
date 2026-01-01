@@ -1,4 +1,5 @@
 join-message: "This is from Task Master Plugin - Hi %name%"
+# zh_cn fr_fr ja_jp en_us ko_kr (chinese, french, japanese, english, korean)
 language: zh_cn
 refresh-while-join: false
 game-status: false
