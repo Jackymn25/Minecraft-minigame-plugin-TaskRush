@@ -195,6 +195,7 @@ entities:
   BLAZE: 烈焰人
   CAVE_SPIDER: 洞穴蜘蛛
   COD: 鳕鱼
+  COW: 奶牛
   CREEPER: 苦力怕
   DOLPHIN: 海豚
   DROWNED: 溺尸
@@ -315,4 +316,14 @@ advancements:
   husbandry/froglights: "相映成辉"
   husbandry/obtain_netherite_hoe: "终极奉献"
 #  husbandry/whole_pack: "整整一群" 不知道了
+ui:
+  task_block_break: "破坏 {target}"
+  task_have_item: "收集 {target}"
+  task_kill_mob: "杀死 {target}"
+  task_death_cause: "死于 {target}"
+  task_advancement: "成就: {target}"
+  task_chat_code: "输入: {target}"
+
+  unknown: "未知"
+
 

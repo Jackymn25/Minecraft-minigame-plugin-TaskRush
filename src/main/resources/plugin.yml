@@ -18,3 +18,6 @@ commands:
   canceltaskmaster:
     description: Cancel and settle TaskMaster game immediately
     usage: /canceltaskmaster
+  reload_tm:
+    description: Reload TaskMaster config/lang
+    usage: /reload_tm [lang]

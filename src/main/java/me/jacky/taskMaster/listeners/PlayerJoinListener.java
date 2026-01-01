@@ -20,7 +20,7 @@ public class PlayerJoinListener implements Listener {
             joinMessage = joinMessage.replace("%name%", event.getPlayer().getName());
             event.getPlayer().sendMessage(
                     ChatColor.translateAlternateColorCodes('&', joinMessage));
-            event.getPlayer().sendMessage("use /taskMaster to join the game. Use /force_cancel to cancel the game.");
+            event.getPlayer().sendMessage("use /jointeam to join a team use /taskMaster to start the game. \n Use /canceltaskmaster to cancel the game.");
         }
         boolean refresh = plugin.getConfig().getBoolean("refresh-while-join");
         if (refresh) {

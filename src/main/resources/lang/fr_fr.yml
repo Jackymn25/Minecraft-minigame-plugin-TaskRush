@@ -315,3 +315,13 @@ advancements:
   husbandry/froglights: "Briller ensemble"
   husbandry/obtain_netherite_hoe: "Don ultime"
   # husbandry/whole_pack: "À déterminer"
+ui:
+  task_block_break: "Casser {target}"
+  task_have_item: "Obtenir {target}"
+  task_kill_mob: "Tuer {target}"
+  task_death_cause: "Mourir par {target}"
+  task_advancement: "Succès : {target}"
+  task_chat_code: "Entrer : {target}"
+
+  unknown: "Inconnu"
+

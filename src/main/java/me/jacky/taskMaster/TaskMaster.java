@@ -1,9 +1,6 @@
 package me.jacky.taskMaster;
 
-import me.jacky.taskMaster.commands.CancelTaskMasterCommand;
-import me.jacky.taskMaster.commands.JoinTeamGUICommand;
-import me.jacky.taskMaster.commands.PingCommand;
-import me.jacky.taskMaster.commands.StartTaskRushCommand;
+import me.jacky.taskMaster.commands.*;
 import me.jacky.taskMaster.config.BonusManager;
 import me.jacky.taskMaster.config.TeamConfigManager;
 import me.jacky.taskMaster.game.Game;
@@ -55,15 +52,15 @@ public final class TaskMaster extends JavaPlugin {
             registerCommands();
             printStartupInfo();
         } catch (Exception e) {
-            getLogger().severe("插件启动失败: " + e.getMessage());
+            getLogger().severe("Plugin failed to load: " + e.getMessage());
             e.printStackTrace();
             getServer().getPluginManager().disablePlugin(this);
         }
     }
 
     private void initConfigFiles() {
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
+        saveDefaultConfig();  // 没有就从 jar 复制
+        reloadConfig();       // 立刻把磁盘 config.yml 读进内存
         ensureBonusFiles();
     }
 
@@ -121,7 +118,18 @@ public final class TaskMaster extends JavaPlugin {
         if (getCommand("jointeam") != null) {
             getCommand("jointeam").setExecutor(new JoinTeamGUICommand(this));
         }
+        getCommand("reload_tm").setExecutor(new ReloadPluginCommand(this));
         getLogger().info("✓ Commands registered");
+    }
+
+    public void reloadAll() {
+        reloadConfig();          // 重新读 config.yml（包括 language）
+        if (langManager != null) {
+            langManager.load();  // 关键：按新 language 重载 lang/*.yml
+        }
+        if (bonusManager != null) {
+            bonusManager.reload();
+        }
     }
 
     private void printStartupInfo() {
@@ -142,6 +150,10 @@ public final class TaskMaster extends JavaPlugin {
 
     public Game getGame() {
         return game;
+    }
+
+    public LangManager getLangManager() {
+        return langManager;
     }
 
     public TeamConfigManager getTeamConfigManager() {

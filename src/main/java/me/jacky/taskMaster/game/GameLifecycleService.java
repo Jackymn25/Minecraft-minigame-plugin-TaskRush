@@ -126,10 +126,11 @@ public final class GameLifecycleService {
 
         teamTasks.clear();
         Bukkit.broadcastMessage(ChatColor.GRAY + "游戏已结束，感谢参与！");
+        Bukkit.broadcastMessage(ChatColor.GRAY + "Game ends");
     }
 
     private void showFinalStatistics(Map<String, TeamState> teamTasks) {
-        Bukkit.broadcastMessage(ChatColor.GOLD + "════════════ 最终统计 ════════════");
+        Bukkit.broadcastMessage(ChatColor.GOLD + "════════════ Stats ════════════");
 
         for (String teamName : teamTasks.keySet()) {
             TeamState task = teamTasks.get(teamName);
@@ -140,8 +141,8 @@ public final class GameLifecycleService {
 
             Bukkit.broadcastMessage(
                     color + displayName
-                            + ChatColor.WHITE + " - 分数: " + ChatColor.GREEN + task.getScore()
-                            + ChatColor.WHITE + " - 完成任务: " + ChatColor.YELLOW + task.getCompletedTasks().size()
+                            + ChatColor.WHITE + " - points: " + ChatColor.GREEN + task.getScore()
+                            + ChatColor.WHITE + " - tasks: " + ChatColor.YELLOW + task.getCompletedTasks().size()
             );
         }
 

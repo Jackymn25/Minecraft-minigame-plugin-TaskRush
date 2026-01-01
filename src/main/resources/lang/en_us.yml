@@ -315,3 +315,11 @@ advancements:
   husbandry/froglights: "With Our Powers Combined!"
   husbandry/obtain_netherite_hoe: "Serious Dedication"
   # husbandry/whole_pack: "TBD"
+ui:
+  task_block_break: "Break {target}"
+  task_have_item: "Obtain {target}"
+  task_kill_mob: "Kill {target}"
+  task_death_cause: "Die by {target}"
+  task_advancement: "Advancement: {target}"
+  task_chat_code: "Type: {target}"
+  unknown: "Unknown"

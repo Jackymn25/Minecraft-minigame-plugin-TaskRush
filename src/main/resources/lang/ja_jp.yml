@@ -315,3 +315,12 @@ advancements:
   husbandry/froglights: "光と蛙"
   husbandry/obtain_netherite_hoe: "究極の献身"
   # husbandry/whole_pack: "（未定）"
+ui:
+  task_block_break: "{target} を破壊"
+  task_have_item: "{target} を入手"
+  task_kill_mob: "{target} を倒す"
+  task_death_cause: "{target} で死亡"
+  task_advancement: "進捗: {target}"
+  task_chat_code: "入力: {target}"
+
+  unknown: "不明"

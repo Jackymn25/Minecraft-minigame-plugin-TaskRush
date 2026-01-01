@@ -31,7 +31,7 @@ public final class ScoreboardService {
         objective = scoreboard.registerNewObjective(
                 "tasks",
                 "dummy",
-                ChatColor.GOLD + "" + ChatColor.BOLD + "任务大师"
+                ChatColor.GOLD + "" + ChatColor.BOLD + "TaskMaster"
         );
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 

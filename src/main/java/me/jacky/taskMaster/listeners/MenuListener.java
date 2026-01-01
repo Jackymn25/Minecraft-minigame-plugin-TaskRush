@@ -75,39 +75,39 @@ public class MenuListener implements Listener {
     private int mapClickToResult(final Player player, final Material type) {
         switch (type) {
             case GREEN_WOOL:
-                player.sendMessage(ChatColor.GREEN + "你已加入绿队！");
+                player.sendMessage(ChatColor.GREEN + "You joined Team Green");
                 player.closeInventory();
                 return 0;
             case YELLOW_WOOL:
-                player.sendMessage(ChatColor.YELLOW + "你已加入黄队！");
+                player.sendMessage(ChatColor.YELLOW + "You joined Team Yellow");
                 player.closeInventory();
                 return 1;
             case RED_WOOL:
-                player.sendMessage(ChatColor.RED + "你已加入红队！");
+                player.sendMessage(ChatColor.RED + "You joined Team Red");
                 player.closeInventory();
                 return 2;
             case BLUE_WOOL:
-                player.sendMessage(ChatColor.BLUE + "你已加入蓝队！");
+                player.sendMessage(ChatColor.BLUE + "You joined Team Blue");
                 player.closeInventory();
                 return 3;
             case PURPLE_WOOL:
-                player.sendMessage(ChatColor.DARK_PURPLE + "你已加入紫队！");
+                player.sendMessage(ChatColor.DARK_PURPLE + "You joined Team Dark Purple");
                 player.closeInventory();
                 return 4;
             case CYAN_WOOL:
-                player.sendMessage(ChatColor.AQUA + "你已加入青队！");
+                player.sendMessage(ChatColor.AQUA + "You joined Team Cyan");
                 player.closeInventory();
                 return 5;
             case PINK_WOOL:
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "你已加入粉队！");
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "You joined Team Pink");
                 player.closeInventory();
                 return 6;
             case WHITE_WOOL:
-                player.sendMessage(ChatColor.WHITE + "你已加入白队！");
+                player.sendMessage(ChatColor.WHITE + "You joined Team White");
                 player.closeInventory();
                 return 7;
             case BARRIER:
-                player.sendMessage(ChatColor.RED + "已关闭队伍选择菜单");
+                player.sendMessage(ChatColor.RED + "GUI closed");
                 player.closeInventory();
                 return CLOSE_RESULT;
             default:

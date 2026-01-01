@@ -69,7 +69,7 @@ public final class TeleportService {
                         false
                 ));
 
-                player.sendMessage(ChatColor.GREEN + "你已被传送到任务区域！");
+                player.sendMessage(ChatColor.GREEN + "You have been teleported");
             }
         }
     }
