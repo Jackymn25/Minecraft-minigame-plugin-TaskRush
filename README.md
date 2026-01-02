@@ -2,6 +2,8 @@
 
 [View English version](./readme_en.md)
 
+[小编的Spigot资源链接](https://www.spigotmc.org/resources/taskmaster.131364/)
+
 TaskMaster 是一个面向 **Spigot/Paper** 服务端的 **团队任务竞赛** 插件。玩家加入队伍后，通过完成随机任务获得积分，最先达到目标分数的队伍获胜。插件内置多语言（默认中文），并支持通过配置文件自定义任务概率与得分规则。
 
 ---
