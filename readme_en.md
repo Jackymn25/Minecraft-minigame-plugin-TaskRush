@@ -1,6 +1,6 @@
 # TaskMaster
 
-[查看中文版本](./readme.md)
+[查看中文版本](./README.md)
 
 TaskMaster is a **team-based task race** plugin for **Spigot/Paper** servers. Players join teams, complete randomly generated tasks to earn points, and the first team to reach the target score wins. The plugin includes multi-language support (Chinese by default) and allows customization of task probabilities and scoring rules via configuration files.
 
