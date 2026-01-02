@@ -1,5 +1,6 @@
 package me.jacky.taskMaster.game;
 
+import me.jacky.taskMaster.TaskMaster;
 import me.jacky.taskMaster.config.BonusManager;
 import me.jacky.taskMaster.text.TaskTextFormatter;
 import me.jacky.taskMaster.view.ActionbarTaskTicker;
@@ -63,6 +64,7 @@ public final class Game {
     private final PlayerSetupService playerSetupService;
     private final TeleportService teleportService;
     private final GameLifecycleService lifecycleService;
+    private final InGameRejoinService inGameRejoinService;
 
     /**
      * 获取队伍配置管理器。
@@ -92,6 +94,7 @@ public final class Game {
         this.playerSetupService = new PlayerSetupService(plugin, teamConfigManager, formatter, scoreboardService);
         this.teleportService = new TeleportService(plugin, teamConfigManager);
         this.lifecycleService = new GameLifecycleService(plugin, teamConfigManager, scoreboardService);
+        this.inGameRejoinService = new InGameRejoinService();
     }
 
     public BonusManager getBonusManager() {
@@ -473,5 +476,12 @@ public final class Game {
         winningTeam = null;
 
         lifecycleService.endGame(showStats, teamTasks);
+    }
+
+    public void handlePlayerRejoin(final Player player) {
+        if (player == null || !isGameRunning()) return;
+        // scoreboard
+        scoreboardService.applyToPlayer(player);
+        inGameRejoinService.rejoin(player, teamConfigManager, plugin);
     }
 }

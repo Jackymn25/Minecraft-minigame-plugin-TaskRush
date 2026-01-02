@@ -27,5 +27,8 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().setHealth(20);
             event.getPlayer().setFoodLevel(20);
         }
+        if (plugin.getGame() != null) {
+            plugin.getGame().handlePlayerRejoin(event.getPlayer());
+        }
     }
 }
