@@ -119,7 +119,9 @@ public final class TaskMaster extends JavaPlugin {
             getCommand("jointeam").setExecutor(new JoinTeamGUICommand(this));
         }
         getCommand("reload_tm").setExecutor(new ReloadPluginCommand(this));
+        this.getCommand("reload_tm").setTabCompleter(new ReloadPluginTabCompleter());
         getLogger().info("✓ Commands registered");
+
     }
 
     public void reloadAll() {
